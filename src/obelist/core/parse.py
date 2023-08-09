@@ -162,10 +162,11 @@ class Parser:
             raise errors.ConfigurationError(
                 message=f"Invalid severity name: {error_on}"
             ) from err
-        status_code = 0
-        if self._highest_severity >= error_on_severity:
-            status_code = 100 + self._highest_severity
-        return status_code
+        return (
+            100 + self._highest_severity
+            if self._highest_severity >= error_on_severity
+            else 0
+        )
 
     def read_commands(self, read_file):
         command_regex_re = re.compile(self._command_regex)

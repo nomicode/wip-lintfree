@@ -30,15 +30,16 @@ class Handler:
         return str(charset_data)
 
     def _handle_match(self, severity, match_attrs, match, attr_fn):
-        annotation = {"severity_name": severity["severity_name"]}
         # TODO: Catch errors
         file = match_attrs["file"]
         line = match_attrs["line"]
         end_line = match_attrs["end_line"]
         title = match_attrs["title"]
         message = match_attrs["message"]
-        # TODO: Catch errors
-        annotation["file"] = attr_fn(match, file)
+        annotation = {
+            "severity_name": severity["severity_name"],
+            "file": attr_fn(match, file),
+        }
         annotation["line"] = attr_fn(match, line)
         annotation["end-line"] = attr_fn(match, end_line)
         annotation["title"] = attr_fn(match, title)
@@ -83,29 +84,24 @@ class RegexHandler(Handler):
         input_lines = input.strip().splitlines()
         for line in input_lines:
             line = line.rstrip("\n")
-            match = self._get_match(line)
-            if match:
+            if match := self._get_match(line):
                 matches.append(match)
         return matches
 
     def _add_file(self, match_attrs, match, annotation):
         file = match_attrs["file"]
-        match_groupdict = match.groupdict()
-        if match_groupdict:
+        if match_groupdict := match.groupdict():
             file = file.format(**match_groupdict)
-        match_groups = match.groups()
-        if match_groups:
+        if match_groups := match.groups():
             file = file.format(*match_groups)
         annotation["file"] = file
         return annotation
 
     def _add_line(self, match_attrs, match, annotation):
         line = match_attrs["line"]
-        match_groupdict = match.groupdict()
-        if match_groupdict:
+        if match_groupdict := match.groupdict():
             line = line.format(**match_groupdict)
-        match_groups = match.groups()
-        if match_groups:
+        if match_groups := match.groups():
             line = line.format(*match_groups)
         annotation["line"] = line
         return annotation
@@ -114,33 +110,27 @@ class RegexHandler(Handler):
         end_line = match_attrs.get("end-line", line)
         if end_line == line:
             return annotation
-        match_groupdict = match.groupdict()
-        if match_groupdict:
+        if match_groupdict := match.groupdict():
             end_line = line.format(**match_groupdict)
-        match_groups = match.groups()
-        if match_groups:
+        if match_groups := match.groups():
             end_line = line.format(*match_groups)
         annotation["end-line"] = end_line
         return annotation
 
     def _add_title(self, match_attrs, match, annotation):
         title = match_attrs["title"]
-        match_groupdict = match.groupdict()
-        if match_groupdict:
+        if match_groupdict := match.groupdict():
             title = title.format(**match_groupdict)
-        match_groups = match.groups()
-        if match_groups:
+        if match_groups := match.groups():
             title = title.format(*match_groups)
         annotation["title"] = title
         return annotation
 
     def _add_message(self, match_attrs, match, annotation):
         message = match_attrs["message"]
-        match_groupdict = match.groupdict()
-        if match_groupdict:
+        if match_groupdict := match.groupdict():
             message = message.format(**match_groupdict)
-        match_groups = match.groups()
-        if match_groups:
+        if match_groups := match.groups():
             message = message.format(*match_groups)
         annotation["message"] = message
         return annotation

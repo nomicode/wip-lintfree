@@ -9,9 +9,7 @@ class XPathHandler(Handler):
 
     def _set_value(self, match, set_dict, key):
         query = set_dict.get(key)
-        if query is None:
-            return None
-        return match.xpath(query)[0]
+        return None if query is None else match.xpath(query)[0]
 
     def _annotate(self, input):
         parser = etree.XMLParser(resolve_entities=False)

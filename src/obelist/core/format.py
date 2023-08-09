@@ -44,8 +44,7 @@ class BaseFormater:
         if title:
             return title
         title = self._name
-        code = annotation.get("code")
-        if code:
+        if code := annotation.get("code"):
             title = f"{self._name}: {code}"
         return title
 
@@ -114,8 +113,7 @@ class ConsoleFormater(BaseFormater):
     _previous_location = None
 
     def _wrap_line(self, line):
-        wrapped_lines = textwrap.wrap(line, self._terminal_width)
-        yield from wrapped_lines
+        yield from textwrap.wrap(line, self._terminal_width)
 
     def _wrap_lines(self, lines):
         for line in lines:
