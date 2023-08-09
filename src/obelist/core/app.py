@@ -95,10 +95,10 @@ class Application:
         raise errors.NotImplementedError()
 
     def _validate(self, config, states):
-        validity = states["not_validated"]
         if config.valid is not None:
-            validity = states["valid"] if config.valid else states["invalid"]
-        return validity
+            return states["valid"] if config.valid else states["invalid"]
+        else:
+            return states["not_validated"]
 
     def list(self, absolute, states):
         # TODO: Indicate active config when multiple configs share the same ID

@@ -55,15 +55,7 @@ class RegexHandler(Handler):
         set_dict = self._default_set_dict.copy()
         set_dict.update(rule.get("set", {}))
         for key, group in set_dict.items():
-            # TODO: Add helpful error message here
-            #
-            # If the user mistakenly put the `severity: foo` line in the `set`
-            # section of the config, this line will throw the following
-            # exception:
-            #
-            #   TypeError: tuple indices must be integers or slices, not str
-            value = match.groups()[group]
-            if value:
+            if value := match.groups()[group]:
                 annotation[key] = value.format(*match.groups())
         return annotation
 
@@ -85,8 +77,7 @@ class RegexHandler(Handler):
 
     def _handle_rules(self, line):
         for rule in self._rules:
-            match = rule["match_re"].search(line)
-            if match:
+            if match := rule["match_re"].search(line):
                 self._handle_match(match, line, rule)
 
     def _annotate(self, input):
