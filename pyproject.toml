@@ -57,7 +57,7 @@ reorder-python-imports = "^3.0.0"
 prospector = "^1.5.3"
 pyroma = "^4.0"
 vulture = "^2.3"
-flake8 = "^3.9.2"
+flake8 = "^6.0.0"
 flake8-cognitive-complexity = "^0.1.0"
 pep8 = "^1.7.1"
 
