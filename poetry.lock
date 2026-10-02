@@ -937,6 +937,8 @@ files = [
 ]
 
 [package.dependencies]
+astroid = ">=1.0"
+pylint = ">=1.0"
 pylint-plugin-utils = ">=0.2.1"
 
 [[package]]
@@ -1254,13 +1256,13 @@ files = [
 
 [[package]]
 name = "urlextract"
-version = "1.8.0"
+version = "1.10.0"
 description = "Collects and extracts URLs from given text."
 optional = false
 python-versions = "*"
 files = [
-    {file = "urlextract-1.8.0-py3-none-any.whl", hash = "sha256:98b38aca4a555116e8b46e5a134b9e4e54e351b8e37169d2857730d1d0ce42c7"},
-    {file = "urlextract-1.8.0.tar.gz", hash = "sha256:3573f6b812814efe06ca46e91e82d984edaa3cd07daaaaa296a467ad9881a037"},
+    {file = "urlextract-1.10.0-py3-none-any.whl", hash = "sha256:3cbe83ebc12548c76f7f1e37bf632f29e3b0da433337fd4f0535f808dffe6324"},
+    {file = "urlextract-1.10.0.tar.gz", hash = "sha256:55c91403e09f4e1f7d36ba0efb88883e476ef14c8d423bddce098395c90be1d8"},
 ]
 
 [package.dependencies]
